@@ -21,7 +21,7 @@ A self-hosted flight tracker. Log every flight you take, see your routes drawn a
 ## Quick start
 
 ```bash
-git clone <your-repo> wingspan
+git clone pusta/wingspan wingspan
 cd wingspan
 docker compose up --build -d
 ```
