@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WingSpan — Flight Tracker</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header>
+    <h1>✈️ WingSpan</h1>
+    <nav>
+      <button data-view="map" class="active">Map</button>
+      <button data-view="flights">Flights</button>
+      <button data-view="stats">Stats</button>
+      <button data-view="add" class="cta">+ Add Flight</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="view-map" class="view active">
+      <div id="map"></div>
+    </section>
+
+    <section id="view-flights" class="view">
+      <div class="section-header">
+        <h2>Your Flights</h2>
+        <div class="header-controls">
+          <select id="year-filter"><option value="">All years</option></select>
+          <a href="/api/export.csv" class="btn-secondary" download>Export CSV</a>
+        </div>
+      </div>
+      <div id="flights-list"></div>
+    </section>
+
+    <section id="view-stats" class="view">
+      <div class="section-header"><h2>Statistics</h2></div>
+      <div id="stats-grid"></div>
+    </section>
+
+    <section id="view-add" class="view">
+      <div class="section-header">
+        <h2 id="add-form-title">Add Flight</h2>
+        <button type="button" id="cancel-edit" class="link-btn" hidden>Cancel edit</button>
+      </div>
+      <form id="add-flight-form" autocomplete="off">
+        <input type="hidden" name="id" id="flight-id" />
+
+        <label>
+          <span>Date</span>
+          <input type="date" name="date" required />
+        </label>
+
+        <div class="form-row two-col">
+          <label class="autocomplete">
+            <span>Airline</span>
+            <input type="text" id="airline-search" placeholder="Type to search…" />
+            <input type="hidden" name="airline" id="airline-name" />
+            <input type="hidden" name="airline_iata" id="airline-iata" />
+            <div class="suggestions" id="airline-suggestions"></div>
+          </label>
+          <label>
+            <span>Flight number</span>
+            <input name="flight_number" placeholder="e.g. DL1234" />
+          </label>
+        </div>
+
+        <div class="form-row two-col">
+          <label class="autocomplete">
+            <span>From</span>
+            <input type="text" id="origin-search" placeholder="City, code, or name" />
+            <input type="hidden" name="origin_iata" id="origin-iata" />
+            <div class="suggestions" id="origin-suggestions"></div>
+          </label>
+          <label class="autocomplete">
+            <span>To</span>
+            <input type="text" id="dest-search" placeholder="City, code, or name" />
+            <input type="hidden" name="dest_iata" id="dest-iata" />
+            <div class="suggestions" id="dest-suggestions"></div>
+          </label>
+        </div>
+
+        <div class="form-row three-col">
+          <label>
+            <span>Aircraft</span>
+            <input name="aircraft" placeholder="e.g. 737-800" />
+          </label>
+          <label>
+            <span>Seat</span>
+            <input name="seat" placeholder="e.g. 14A" />
+          </label>
+          <label>
+            <span>Class</span>
+            <select name="travel_class">
+              <option value="">—</option>
+              <option>Economy</option>
+              <option>Premium Economy</option>
+              <option>Business</option>
+              <option>First</option>
+            </select>
+          </label>
+        </div>
+
+        <label>
+          <span>Duration (minutes, optional — estimated if blank)</span>
+          <input name="duration_minutes" type="number" min="1" placeholder="e.g. 435" />
+        </label>
+
+        <label>
+          <span>Notes (optional)</span>
+          <textarea name="notes" rows="2" placeholder="Seat, upgrade, travel companion…"></textarea>
+        </label>
+
+        <button type="submit" id="form-submit">Save Flight</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.geodesic@2.7.1/dist/leaflet.geodesic.umd.min.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>

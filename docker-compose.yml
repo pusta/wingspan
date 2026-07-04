@@ -1,0 +1,10 @@
+services:
+  wingspan:
+    build: .
+    image: wingspan:latest
+    container_name: wingspan
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/data
+    restart: unless-stopped
